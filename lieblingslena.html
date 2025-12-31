@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Für meine Lieblingslena ❤️</title>
+
+<!-- Vorschaubild / WhatsApp-Preview -->
+<meta property="og:title" content="Für meine Lieblingslena ❤️">
+<meta property="og:description" content="Tippe auf das Herz für deine Überraschung.">
+<meta property="og:image" content="https://leon231101.github.io/lena-preview.png">
+<meta property="og:type" content="website">
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(135deg, #1b2735, #090a0f);
+        color: white;
+        text-align: center;
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+    .heart {
+        font-size: 120px;
+        margin-top: 80px;
+        animation: pulse 1.5s infinite;
+        filter: drop-shadow(0 0 20px #ff3b94);
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.18); }
+        100% { transform: scale(1); }
+    }
+    .hint {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #ff9bbd;
+        animation: blink 1.2s infinite;
+        position: relative;
+        z-index: 10;
+    }
+    @keyframes blink { 50% { opacity:.3; } }
+    #message {
+        display: none;
+        font-size: 24px;
+        max-width: 80%;
+        margin: 120px auto 80px auto;
+        line-height: 1.6;
+        color: #ffe9a8;
+        text-shadow: 0 0 8px rgba(255,255,255,0.3);
+        z-index: 20;
+        position: relative;
+    }
+    .animals {
+        margin-top: 25px;
+        font-size: 40px;
+        opacity: 0.9;
+        position: relative;
+        z-index: 10;
+    }
+    #fireworks {
+        position: fixed;
+        inset: 0;
+        display: none;
+        pointer-events: none;
+        z-index: 0;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="heart" onclick="showMsg()">❤️</div>
+<div class="hint">👉 Tippe auf das Herz, um deine Überraschung zu sehen</div>
+
+<div class="animals">
+    🐈🐈🐈 · 🦆🦆 · 🐕‍🦺
+</div>
+
+<div id="message">
+✨ <strong>Für meine Lieblingslena</strong> ✨<br><br>
+Ich wünsche Dir ein frohes neues Jahr. 🎉<br>
+Auf viele wundervolle Momente, die wir beide erleben werden. ✨<br><br>
+Ohne dich könnte ich mir mein Leben nicht mehr vorstellen und das möchte ich auch gar nicht.<br>
+Du bist der wichtigste Teil in meinem Leben und meine bessere Hälfte 🦆🦆🦆<br><br>
+Danke für alles ♥️<br>
+Ich hab dich lieb 😽<br><br>
+<strong>Von deinem liebsten Leon ❤️</strong>
+</div>
+
+<script>
+let fwStarted = false;
+function resizeCanvas(){
+    const c = document.getElementById('fireworks');
+    c.width = innerWidth;
+    c.height = innerHeight;
+}
+function startFireworks(){
+    const c = document.getElementById('fireworks');
+    const ctx = c.getContext('2d');
+    c.style.display = 'block';
+    resizeCanvas();
+    const colors = ['#ff477e','#ffd166','#06d6a0','#4cc9f0','#f72585'];
+    setInterval(() => {
+        ctx.clearRect(0,0,c.width,c.height);
+        for(let i=0;i<20;i++){
+            let x = Math.random()*c.width;
+            let y = Math.random()*c.height*0.6;
+            let color = colors[Math.floor(Math.random()*colors.length)];
+            for(let j=0;j<25;j++){
+                let a = (Math.PI*2/25)*j;
+                let d = Math.random()*40+10;
+                ctx.beginPath();
+                ctx.arc(x+Math.cos(a)*d, y+Math.sin(a)*d, 2, 0, 2*Math.PI);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+    }, 450);
+}
+function showMsg(){
+    document.getElementById("message").style.display = "block";
+    if(!fwStarted){ startFireworks(); fwStarted = true; }
+    scrollTo(0, document.body.scrollHeight);
+}
+addEventListener('resize', resizeCanvas);
+</script>
+
+</body>
+</html>
